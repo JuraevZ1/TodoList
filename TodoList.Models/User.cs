@@ -8,16 +8,16 @@ public class User
         LastName = lastName;
         Password = password;
         id+=1;
-        UserTodoList = new Stack<Issue>();
+        UserTodoList = new List<Issue>();
     }
     private static int id = 1;
     public int Id{get;}
     public string Name { get; }
     public string LastName{get;}
     public string Password{get;}
-    public Stack<Issue> UserTodoList{get;private set;}
+    public List<Issue> UserTodoList{get;private set;}
 
     public void AddIssue(Issue issue){
-        UserTodoList.Push(issue);
+        UserTodoList.Add(issue);
     }
 }
