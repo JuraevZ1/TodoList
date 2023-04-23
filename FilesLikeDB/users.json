@@ -1,26 +1,36 @@
 [
   {
-    "Id": 1,
+    "Id": 3,
     "Name": "Ali",
     "LastName": "VAliev",
     "Password": "6349724",
     "UserTodoList": [
       {
         "Title": "Run",
-        "CreatedData": "2023-04-19T00:00:00+05:00",
+        "CreatedDate": "0001-01-01T00:00:00",
         "Description": "Running at morning"
+      },
+      {
+        "Title": "Play",
+        "CreatedDate": "0001-01-01T00:00:00",
+        "Description": "Play football"
+      },
+      {
+        "Title": "Do homeworks",
+        "CreatedDate": "0001-01-01T00:00:00",
+        "Description": "do exercises form english "
       }
     ]
   },
   {
-    "Id": 2,
+    "Id": 4,
     "Name": "Jonni",
     "LastName": "Nuckirberg",
     "Password": "463279",
     "UserTodoList": [
       {
         "Title": "Get up",
-        "CreatedData": "2023-04-19T00:00:00+05:00",
+        "CreatedDate": "0001-01-01T00:00:00",
         "Description": "GEt up early"
       }
     ]
