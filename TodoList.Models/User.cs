@@ -3,17 +3,15 @@ using Newtonsoft.Json;
 namespace TodoList.Models;
 public class User
 {
-    public User(string name,string lastName,string password)
+    public User(string keyId,string name,string lastName,string password)
     {
-        Id = id;
+        KeyId = keyId;
         Name = name;
         LastName = lastName;
         Password = password;
-        id+=1;
         UserTodoList = new List<Issue>();
     }
-    private static int id = 1;
-    public int Id{get;}
+    public string KeyId{get;}
     public string Name { get; }
     public string LastName{get;}
     public string Password{get;}
@@ -28,10 +26,9 @@ public class User
        
         var filePath = path;
 // Read existing json data
-        var jsonData = System.IO.File.ReadAllText(filePath);
+        var jsonData = GetJsonData(filePath);
 // De-serialize to object or create new list
-        var usersList = JsonConvert.DeserializeObject<List<User>>(jsonData) 
-                      ?? new List<User>();
+        var usersList = DeserializeUser(filePath);
 
         foreach(var us in usersList){
             if(us.Name == user.Name){
@@ -46,5 +43,42 @@ public class User
 // Update json data string
 
 
+    }
+    public static void DeleteIssue(int number,string pathJson,User user){
+        var usersList = DeserializeUser(pathJson);
+        if(number <= 0 || number > user.UserTodoList.Count){
+            System.Console.WriteLine("Enter right value");
+        }
+        else{
+            foreach(var us in usersList){
+                if(us.KeyId == user.KeyId){
+                    us.UserTodoList.RemoveAt(number - 1);
+                    SerializeAndWrite(usersList,pathJson);
+                    System.Console.WriteLine("User sucessfully deleted!");
+                    break;
+                }
+                
+            }
+            
+
+        }
+    }
+    public static List<User> DeserializeUser(string path){
+
+        var filePath = path;
+// Read existing json data
+        var jsonData = GetJsonData(filePath);
+// De-serialize to object or create new list
+        var usersList = JsonConvert.DeserializeObject<List<User>>(jsonData) 
+                      ?? new List<User>();
+        return usersList;
+    }
+    public static void SerializeAndWrite(List<User> usersList,string filePath){
+        var jsonData = JsonConvert.SerializeObject(usersList,Formatting.Indented);
+        System.IO.File.WriteAllText(filePath, jsonData);
+    }
+    public static string GetJsonData(string pathFile){
+    var jsonData = System.IO.File.ReadAllText(pathFile);
+    return jsonData;
     }
 }

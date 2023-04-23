@@ -31,6 +31,11 @@ public static class TodoMain
                         case 1:
                         User.AddIssue(path,checkUser);
                         break;
+                        case 2:
+                        System.Console.WriteLine("Enter number of Issue:");
+                        int number = int.Parse(Console.ReadLine());
+                        User.DeleteIssue(number,path,checkUser);
+                        break;
                   }
                 }
                 else{
@@ -39,6 +44,7 @@ public static class TodoMain
                 break;
             case 2:
                 System.Console.WriteLine("Sign up");
+                AddNewUser(path);
                 break;
             case 3:
                 System.Console.WriteLine("Exit");
@@ -88,5 +94,19 @@ public static class TodoMain
        var users = JsonConvert.DeserializeObject<List<User>>(json);
        return users;
     }
-    
+    public static void AddNewUser(string pathJsonFile){
+        System.Console.WriteLine("Add key id:");
+        string keyId = Console.ReadLine();
+        System.Console.WriteLine("Enter your Name:");
+        string name = Console.ReadLine();
+        System.Console.WriteLine("Enter your LastName");
+        string lastName = Console.ReadLine();
+        System.Console.WriteLine("Enter password:");
+        string password = Console.ReadLine();
+        var newUser = new User(keyId,name,lastName,password);
+        var usersList = User.DeserializeUser(pathJsonFile);
+        usersList.Add(newUser);
+        User.SerializeAndWrite(usersList,pathJsonFile);
+        System.Console.WriteLine("successfully created your account");
+    }
 }
