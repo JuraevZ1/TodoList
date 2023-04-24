@@ -11,10 +11,12 @@ public class User
         Password = password;
         UserTodoList = new List<Issue>();
     }
+    
     public string KeyId{get;}
     public string Name { get; }
     public string LastName{get;}
     public string Password{get;}
+    
     public List<Issue> UserTodoList{get;private set;}
 
     public static void AddIssue(string path,User user){
@@ -23,7 +25,7 @@ public class User
         System.Console.WriteLine("Enter Description");
         string description = Console.ReadLine();
         var newIssue = new Issue(title,description);
-       
+       user.UserTodoList.Add(newIssue);
         var filePath = path;
 // Read existing json data
         var jsonData = GetJsonData(filePath);
@@ -53,6 +55,7 @@ public class User
             foreach(var us in usersList){
                 if(us.KeyId == user.KeyId){
                     us.UserTodoList.RemoveAt(number - 1);
+                    user.UserTodoList.RemoveAt(number - 1);
                     SerializeAndWrite(usersList,pathJson);
                     System.Console.WriteLine("User sucessfully deleted!");
                     break;
